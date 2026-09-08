@@ -1,0 +1,32 @@
+{
+  "name": "claude-codebuddy-bridge",
+  "version": "1.0.0",
+  "description": "本地协议桥：把 CodeBuddy/WorkBuddy 订阅(积分)包装成 Anthropic Messages API，供 Claude Code 经 cc-switch 使用。零依赖。",
+  "type": "module",
+  "bin": {
+    "cc-codebuddy": "src/index.js"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "doctor": "node src/index.js --doctor",
+    "test": "node scripts/e2e.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/MrLiushimin/claude-codebuddy-bridge.git"
+  },
+  "author": "MrLiushimin",
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "claude-code",
+    "codebuddy",
+    "workbuddy",
+    "anthropic",
+    "proxy",
+    "cc-switch"
+  ],
+  "license": "MIT"
+}

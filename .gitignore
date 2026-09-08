@@ -1,0 +1,7 @@
+node_modules/
+*.log
+.claude-codebuddy/
+.DS_Store
+
+# 本地实际配置（含个人 apiKey 等敏感项时会被误推，统一只提交 example 模板）
+config.json

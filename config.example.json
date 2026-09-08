@@ -1,0 +1,23 @@
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8788
+  },
+  "auth": {
+    "file": ""
+  },
+  "log": {
+    "enabled": true,
+    "path": "bridge.log"
+  },
+  "security": {
+    "apiKey": "",
+    "desensitize": true,
+    "sanitizeIdentity": true
+  },
+  "upstream": {
+    "effort": "",
+    "keepReasoningAsText": false,
+    "maxTokensDefault": 16000
+  }
+}
