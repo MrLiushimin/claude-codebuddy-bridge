@@ -42,9 +42,11 @@ copilot.tencent.com  CodeBuddy 后端 (GLM-5.3 / DeepSeek-V4 / Kimi / Hy3 ...)
 
 ## 前置条件
 
-1. 已安装并**登录** CodeBuddy / WorkBuddy 桌面端（桥自动扫描登录文件，Windows 在
-   `%LOCALAPPDATA%\CodeBuddyExtension\Data\Public\auth\*.info`，可用
-   `WORKBUDDY_AUTH_FILE` 环境变量或 `--auth-file` 指定其它位置）。
+1. 已安装并**登录** CodeBuddy / WorkBuddy 桌面端（桥自动扫描登录文件）：
+   - **Windows**: `%LOCALAPPDATA%\CodeBuddyExtension\Data\Public\auth\*.info`
+   - **macOS**: `~/Library/Application Support/CodeBuddyExtension/Data/Public/auth/*.info`
+   - **Linux**: `~/.local/share/CodeBuddyExtension/Data/Public/auth/*.info`
+   也可用 `WORKBUDDY_AUTH_FILE` 环境变量或 `--auth-file` 指定其它位置。
 2. Node.js 18+。
 
 ## 快速开始
@@ -57,7 +59,9 @@ node src/index.js --doctor
 node src/index.js
 ```
 
-Windows 也可直接双击 `start.bat`（支持追加参数，如 `start.bat --port 8789`）。
+- **Windows**：可直接双击 `start.bat`（支持追加参数，如 `start.bat --port 8789`）
+- **macOS / Linux**：`./start.sh`（支持追加参数，如 `./start.sh --port 8789`）；
+  后台常驻：`nohup ./start.sh >bridge.out 2>&1 &`，停止用 `pkill -f "src/index.js"`
 
 验证：
 
@@ -141,7 +145,7 @@ cp config.example.json config.json   # 从模板创建自己的配置
 - `config.json` 已被 `.gitignore` 排除，本地个性化配置（尤其设了 `apiKey`）不会被误推；
   仓库里只保留 `config.example.json` 模板。
 - 想临时覆盖又不想动文件：CLI 显式传参会赢过配置文件，例如
-  `node src/index.js --no-log`（本次关日志）、`start.bat --port 8789`。
+  `node src/index.js --no-log`（本次关日志）、`start.bat --port 8789` / `./start.sh --port 8789`。
 
 ## CLI 参数
 
@@ -211,7 +215,11 @@ node scripts/bisect-11128.mjs <system-dump.txt> [--model deepseek-v4-flash]
   **不回写桌面端 auth 文件**。若刷新也失败会提示重新打开桌面端登录。
 - **"内容审核拦截"**：CodeBuddy 后端偶发误拦（提示会原样返回）。可换措辞重试。
 - **积分不足**：上游返回 402，桥会把错误信息转成中文提示返回给 Claude Code。
-- **端口占用**：换端口 `--port N`；也确认没有残留的桥进程。
+- **端口占用**：换端口 `--port N`；也确认没有残留的桥进程
+  （Windows: `netstat -ano | findstr 8788` 后按 PID 结束；macOS/Linux: `lsof -i :8788` / `pkill -f "src/index.js"`）。
+- **macOS 权限**：若报 auth 文件读不到，先确认目录归属：
+  `ls -la ~/Library/Application\ Support/CodeBuddyExtension/Data/Public/auth/`，
+  owner 不是当前用户时 `sudo chown -R $(whoami) ~/Library/Application\ Support/CodeBuddyExtension`（官方 FAQ 建议）。
 
 ## 项目结构
 
@@ -230,6 +238,7 @@ claude-codebuddy-bridge/
 │   └── bisect-11128.mjs      # 11128 拦截二分定位
 ├── config.example.json       # 配置模板（复制为 config.json 使用）
 ├── start.bat                 # Windows 一键启动
+├── start.sh                  # macOS / Linux 一键启动
 └── package.json
 ```
 
