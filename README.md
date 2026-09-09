@@ -244,7 +244,15 @@ claude-codebuddy-bridge/
 
 ## 致谢
 
-上游协议细节参考了这些实战项目：[codebuddy2openai](https://github.com/)、dsh-workbuddy-connect、Sliverkiss/workbuddy2api。
+本项目的实现建立在他人已公开的工作之上，以下如实标注来源与许可证：
+
+- **Sliverkiss/workbuddy2api**（[MIT](https://github.com/Sliverkiss/workbuddy2api)）— WorkBuddy 上游协议（`copilot.tencent.com` 的 wire behavior）的参照实现。
+- **corrinehu/dsh-workbuddy-connect**（[MIT](https://github.com/corrinehu/dsh-workbuddy-connect)，Copyright (c) 2026 Corrine Hu）— 桌面端凭据的发现与刷新机制、上游请求头约定的参照来源。
+- **HanHan666666/codebuddy2openai**（[MIT](https://github.com/HanHan666666/codebuddy2openai)）— 协议转换思路的参照来源。
+
+说明：以上各项目的版权归其各自作者所有。本项目采用「借鉴设计思路 + 独立实现」的方式，
+未整体复制任何参考项目的源码，全部代码为独立编写。若你发现本项目的标注有遗漏或不当之处，
+请提交 issue，会立即更正。许可证信息核对于 2026-09-09。
 
 ## 免责声明
 
